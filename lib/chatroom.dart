@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:generative_ai_youtube/message_widget.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
@@ -85,11 +83,13 @@ class _ChatroomState extends State<Chatroom> {
               ),
             ),
             IconButton(
-              onPressed: isLoading? null:() {
-                if (!isLoading) {
-                  _sendMessage(_textController.text);
-                }
-              },
+              onPressed: isLoading
+                  ? null
+                  : () {
+                      if (!isLoading) {
+                        _sendMessage(_textController.text);
+                      }
+                    },
               icon: const Icon(Icons.send),
             ),
           ],
@@ -121,14 +121,12 @@ class _ChatroomState extends State<Chatroom> {
 
     final response = await _chatSession.sendMessage(Content.text(value));
 
-
-      setState(() {
-        isLoading = false;
-      });
+    setState(() {
+      isLoading = false;
+    });
 
     _scrollToBottom();
     _focusNode.requestFocus();
-
 
     // setState(() {
     //   isLoading = true;
